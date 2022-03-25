@@ -28,11 +28,6 @@ function wheel(state = initialWheelState, action) {
 
 const initialQuizState = "";
 function quiz(state = initialQuizState, action) {
-  return state
-}
-
-const initialSelectedAnswerState = null
-function selectedAnswer(state = initialSelectedAnswerState, action) {
   switch (action.type) {
     case SET_QUIZ_INTO_STATE:
       return action.payload;
@@ -41,18 +36,45 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
   }
 }
 
-const initialMessageState = ''
+const initialSelectedAnswerState = "";
+function selectedAnswer(state = initialSelectedAnswerState, action) {
+  switch (action.type) {
+    case SET_SELECTED_ANSWER:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+const initialMessageState = "";
 function infoMessage(state = initialMessageState, action) {
-  return state
+  switch (action.type) {
+    case SET_INFO_MESSAGE:
+      return action.payload;
+    default:
+      return state;
+  }
 }
 
 const initialFormState = {
-  newQuestion: '',
-  newTrueAnswer: '',
-  newFalseAnswer: '',
+  newQuestion: "",
+  newTrueAnswer: "",
+  newFalseAnswer: "",
 }
+
 function form(state = initialFormState, action) {
-  return state
+  switch (action.type){
+    case INPUT_CHANGE:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case RESET_FORM:
+      return{ ...initialFormState };
+    default:
+      return state
+  }
+
 }
 
 export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form })
